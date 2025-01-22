@@ -25,7 +25,7 @@ var RibbonData = {
             color: "#120099",
             colors: [
                 {
-                    color: "#120099",
+                    color: "#000000",
                     width: 0.2
                 }
             ]
@@ -203,6 +203,20 @@ var RibbonData = {
         }
     }
 }
+var OrnamentData = {
+    "star": {
+        "bronze": "",
+        "silver": "",
+        "gold": ""
+    },
+    "lamp": {
+        "bronze": "",
+        "silver": "",
+        "gold": ""
+    },
+    "anchor": "",
+    "drone": ""
+}
 var Game = {
     canvas: document.createElement("canvas"),
     init: function(){
@@ -263,6 +277,34 @@ var Game = {
             this.context.fillRect(ornstart,y+height/2-o.height/2,o.width,o.height);
             ornstart += o.width+ornspace;
         }*/
+    },
+    //create the maps of ribbons. Used when parsing xml files to get ribbon id
+    generateRibbonMap: function(){
+        this.map = {};
+        for(let ribbon in RibbonData){
+            map[RibbonData[ribbon].name.toUpperCase()] = ribbon;
+        }
+    },
+    //returns the 2 relevant columns of text
+    parseXML: function(){
+        return {
+            ribs: ["EXEMPLARY CONDUCT", "NS I OUTSTANDING CADET", "PHYSICAL FITNESS"],
+            devs: ["", "", "1 BRONZE LAMP"],
+            orns: ["2 SILVER STARS", "", ""]
+        };
+    },
+    parseMasterTable: function(table){
+        let ribbons = [
+                //
+            ]
+        for(let r of table.ribs){
+            let rib = {
+                id: this.map[r],
+                orndata: {}
+            }
+            ribbons.add(rib);
+        }
+        return ribbons;
     }
 }
 function start(){

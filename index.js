@@ -344,17 +344,18 @@ var RibbonData = {
 var OrnamentData = {
     "checkorder": ["star", "lamp", "anchor", "drone", "torch"],
     "star": {
-        "bronze": "",
-        "silver": "",
-        "gold": ""
+        "bronze": "images/orn/starbronze.png",
+        "silver": "images/orn/starsilver.png",
+        "gold": "images/orn/stargold.png"
     },
     "lamp": {
-        "bronze": "",
-        "silver": "",
-        "gold": ""
+        "bronze": "images/orn/lampbronze.png",
+        "silver": "images/orn/lampsilver.png",
+        "gold": "images/orn/lampgold.png"
     },
-    "anchor": "",
-    "torch": ""
+    "anchor": "images/orn/anchor.png",
+    "pad": "images/orn/leaf.png",
+    "torch": "images/orn/torch.png"
 }
 const width = 160;
 const rpr = 3;// ribbons per row
@@ -437,7 +438,10 @@ var Game = {
         }
     },
     //returns the 2 relevant columns of text
-    parseXML: function(){
+    parseXML: function(xml){
+        if(!this.map){
+            this.generateRibbonMap();
+        }
         return {
             ribs: ["EXEMPLARY CONDUCT", "NS I OUTSTANDING CADET", "PHYSICAL FITNESS"],
             devs: ["", "", "1 BRONZE LAMP"],
@@ -448,7 +452,7 @@ var Game = {
         for(let r of table.ribs){
             let rib = {
                 id: this.map[r],
-                orndata: {}
+                orndata: []
             }
             if(id!==undefined){
                 ribbons.push(rib);

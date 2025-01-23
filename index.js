@@ -3,19 +3,34 @@ var RibbonData = {
     "merit": {
         "name": "Meritorious Achievement",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "distunit": {
         "name": "Distinguished Unit",
         "ribbon": {
-            //
+            sym: true,
+            color: "#ffffff",
+            colors: [
+                {
+                    color: "#000000",
+                    width: 0.6
+                },
+                {
+                    color: "#c78a2e",
+                    width: 0.2
+                }
+            ]
         }
     },
     "distcad": {
         "name": "Distinguished Cadet",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "honorcad": {
@@ -34,43 +49,117 @@ var RibbonData = {
     "cadetachieve": {
         "name": "Cadet Achievement",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "unitachieve": {
         "name": "Unit Achievement",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "apt": {
         "name": "Aptitude",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "outst4": {
         "name": "Naval Science IV Outstanding Cadet",
         "ribbon": {
-            //
+            sym: true,
+            color: "#ff9900",
+            colors: [
+                {
+                    color: "#ffffff",
+                    width: 0.85
+                },
+                {
+                    color: "#000091",
+                    width: 0.7
+                },
+                {
+                    color: "#ffffff",
+                    width: 0.5*.75
+                },
+                {
+                    color: "#000091",
+                    width: 0.3*.75
+                },
+                {
+                    color: "#ffffff",
+                    width: 0.1*.75
+                }
+            ]
         }
     },
     "outst3": {
         "name": "Naval Science III Outstanding Cadet",
         "ribbon": {
-            //
+            sym: true,
+            color: "#ff9900",
+            colors: [
+                {
+                    color: "#ffffff",
+                    width: 0.85
+                },
+                {
+                    color: "#000091",
+                    width: 0.7
+                },
+                {
+                    color: "#ffffff",
+                    width: 0.3*.75
+                },
+                {
+                    color: "#000091",
+                    width: 0.1*.75
+                }
+            ]
         }
     },
     "outst2": {
         "name": "Naval Science II Outstanding Cadet",
         "ribbon": {
-            //
+            sym: true,
+            color: "#ff9900",
+            colors: [
+                {
+                    color: "#ffffff",
+                    width: 0.85
+                },
+                {
+                    color: "#000091",
+                    width: 0.7
+                },
+                {
+                    color: "#ffffff",
+                    width: 0.1*.75
+                }
+            ]
         }
     },
     "outst1": {
         "name": "Naval Science I Outstanding Cadet",
         "ribbon": {
-            //
+            sym: true,
+            color: "#ff9900",
+            colors: [
+                {
+                    color: "#ffffff",
+                    width: 0.85
+                },
+                {
+                    color: "#000091",
+                    width: 0.7
+                }
+            ]
         }
     },
     "exemcond": {
@@ -93,91 +182,121 @@ var RibbonData = {
     "exempa": {
         "name": "Exemplary Personal Appearance",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "pt": {
         "name": "Physical Fitness",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "part": {
         "name": "Participation",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "unitserve": {
         "name": "Unit Service",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "commserve": {
         "name": "Community Service",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "acad": {
         "name": "Academic Team",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "drill": {
         "name": "Drill Team",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "colorguard": {
         "name": "Color Guard",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "stem": {
         "name": "S.T.E.M.",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "mk": {
         "name": "Marksmanship",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "ortr": {
         "name": "Orienteering",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "intservcomp": {
         "name": "Inter-service Competition",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "rec": {
         "name": "Recruiting",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "blt": {
         "name": "Leadership Training",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "seacr": {
         "name": "Sea Cruise",
         "ribbon": {
-            //
+            sym: false,
+            color: "#ffffff",
+            colors: []
         }
     },
     "cert": {
@@ -201,9 +320,29 @@ var RibbonData = {
                 }
             ]
         }
+    },
+    "vetsday": {
+        "name": "Veterans Day",
+        "ribbon": {
+            sym: false,
+            color: "#ffffff",
+            colors: [
+                {
+                    color: "#ff0000",
+                    start: 0,
+                    width: 0.33
+                },
+                {
+                    color: "#0000ff",
+                    start: 0.67,
+                    width: 0.33
+                },
+            ]
+        }
     }
 }
 var OrnamentData = {
+    "checkorder": ["star", "lamp", "anchor", "drone", "torch"],
     "star": {
         "bronze": "",
         "silver": "",
@@ -215,8 +354,10 @@ var OrnamentData = {
         "gold": ""
     },
     "anchor": "",
-    "drone": ""
+    "torch": ""
 }
+const width = 160;
+const rpr = 3;// ribbons per row
 var Game = {
     canvas: document.createElement("canvas"),
     init: function(){
@@ -226,16 +367,26 @@ var Game = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         console.log('init');
     },
-    test: function(){
+    renderRibbonBar: function(ribbons = ["rdm", "exemcond", "cert", "honorcad", "vetsday", "outst1", "outst2", "outst3", "outst4", "distunit"]){
         console.log('test');
-        let width = 160;
-        let ribbons = ["rdm", "exemcond", "cert", "honorcad"];
+        let ribbonsfirstrow = [];
+        let s = (ribbons.length-1)%rpr+1;
+        for(let i = 0; i < s; i++){
+            ribbonsfirstrow.push(ribbons.shift());
+        }
+        console.log(ribbons);
+        console.log(ribbonsfirstrow)
         let height = width*ribbonsizeratio;
         //center first row
         //ex. 3 per row, if 5 ribbons, first two should be centered
-        let firstrowoffset = (3-ribbons.length%3)*width/2;
+        let firstrowoffset = (rpr-ribbonsfirstrow.length)*width/2;
+        //note: starts from 2nd row, render first row later
         for(let i = 0; i < ribbons.length; i++){
-            this.drawRibbon((i%3)*width, Math.floor(i/3)*height, width, RibbonData[ribbons[i]].ribbon);
+            this.drawRibbon((i%3)*width, Math.floor(i/rpr)*height+height, width, RibbonData[ribbons[i]].ribbon);
+        }
+        //draw first row
+        for(let i = 0; i < ribbonsfirstrow.length; i++){
+            this.drawRibbon(firstrowoffset+i*width, 0, width, RibbonData[ribbonsfirstrow[i]].ribbon);
         }
     },
     drawRibbon: function(x = 0, y = 0, width = 160, ribdata = RibbonData.exemcond.ribbon, orndata = []){
@@ -261,7 +412,7 @@ var Game = {
         //draw gray transparent shadow along bottom and right of ribbon
         this.context.fillStyle = "#212121";
         this.context.alpha = 0.5;
-        this.context.fillRect(x+width-2,y,2,height);
+        this.context.fillRect(x+width-1,y,1,height);
         this.context.fillRect(x,y+height-2,width,2);
         this.context.alpha = 1;
 
@@ -282,7 +433,7 @@ var Game = {
     generateRibbonMap: function(){
         this.map = {};
         for(let ribbon in RibbonData){
-            map[RibbonData[ribbon].name.toUpperCase()] = ribbon;
+            this.map[RibbonData[ribbon].name.toUpperCase()] = ribbon;
         }
     },
     //returns the 2 relevant columns of text
@@ -294,50 +445,21 @@ var Game = {
         };
     },
     parseMasterTable: function(table){
-        let ribbons = [
-                //
-            ]
         for(let r of table.ribs){
             let rib = {
                 id: this.map[r],
                 orndata: {}
             }
-            ribbons.add(rib);
+            if(id!==undefined){
+                ribbons.push(rib);
+            }else{
+                console.log("Ribbon not found: "+r);
+            }
         }
         return ribbons;
     }
 }
 function start(){
     Game.init();
-    Game.test();
-}
-let ribdataold = {
-    sym: true,
-    color: "#000000",
-    colors: [
-        {
-            color: "#0004ff",
-            width: 0.5
-        },
-        {
-            color: "#ff00e1",
-            width: 0.25
-        }
-    ]
-}
-let ribdata = {
-    sym: false,
-    color: "#000000",
-    colors: [
-        {
-            color: "#0004ff",
-            start: 0,
-            width: 0.5
-        },
-        {
-            color: "#ff00e1",
-            start: 0.75,
-            width: 0.25
-        }
-    ]
+    Game.renderRibbonBar();
 }

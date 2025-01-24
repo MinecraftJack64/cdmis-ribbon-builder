@@ -461,9 +461,41 @@ var Game = {
             }
         }
         return ribbons;
+    },
+    fetchCadetList: async function(){
+        //send http request to node server to get cadet list(json array)
+        let response = await fetch('/getcadetlist');
+        let data = await response.json();
+        return data;
+    },
+    loadCadets: async function(){
+        //this is called from a button click
+        //get the cadet list
+        this.cadets = await this.fetchCadetList();
+        msg.innerHTML = "Cadets loaded from server";
+    },
+    loadCadet: async function(cadet){
+        let cad = await fetch('/getcadet/'+cadet);
+        let data = new window.DOMParser().parseFromString(cad, "text/xml");
+        console.log(data);
+        this.cadet = cadet;
+        return data;
+    },
+    downloadRibbonRack: function(){
+        //download the ribbon rack as an image
+        let dataURL = this.canvas.toDataURL();
+        //send to server to save
+        fetch('/savecadet/'+cadet, {
+            method: 'POST',
+            body: {cadet: this.cadet, img: JSON.stringify({data: dataURL})},
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 }
 function start(){
     Game.init();
+    Game.generateRibbonMap();
     Game.renderRibbonBar();
 }

@@ -485,9 +485,9 @@ var Game = {
         //download the ribbon rack as an image
         let dataURL = this.canvas.toDataURL();
         //send to server to save
-        fetch('/savecadet/'+cadet, {
+        fetch('/savecadet/'+this.cadet, {
             method: 'POST',
-            body: {cadet: this.cadet, img: JSON.stringify({data: dataURL})},
+            body: JSON.stringify({data: dataURL}),
             headers: {
                 'Content-Type': 'application/json'
             }

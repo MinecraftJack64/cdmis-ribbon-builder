@@ -7,11 +7,6 @@ var path = require('path');
 var app = express();
 var server = require('http').createServer(app);
 const ImageDataURI = require('image-data-uri');
-
-const dataURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAIAAAFlEcHbAAAAB3RJTUUH1gMWFjk7nUWcXQAAAAlwSFlzAABOIAAATiABFn2Z3gAAAARnQU1BAACxjwv8YQUAAAAeSURBVHjaY7h79y7DhAkTGIA04/Tp0xkYGJ49ewYAgYwLV/R7bDQAAAAASUVORK5CYII=';
-const fileName = 'decoded-image.png';
-
-ImageDataURI.outputFile(dataURI, filePath);
 var port = 8008;
 app.use(cors());
 // Configuring body parser middleware
@@ -32,5 +27,10 @@ app.get('/getcadetlist', function(req, res) {
 app.get('/getcadet/:cadet', function(req, res) {
     //send json object
     res.sendFile(path.join(__dirname, '/cdmisdata/'+req.params.cadet+'.xml'));
+});
+app.post('/savecadet/:cadet', function(req, res){
+    const dataURI = req.body.data;
+    //console.log(dataURI);
+    ImageDataURI.outputFile(dataURI, path.join(__dirname, '/output/'+req.params.cadet+".png"));
 });
 server.listen(port, function () { return console.log("Le serveur est listener sur porte ".concat(port, "!")); });

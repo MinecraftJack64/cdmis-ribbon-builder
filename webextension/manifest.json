@@ -1,0 +1,24 @@
+{
+    "name": "NETFOCUS Crawler for NJROTC",
+    "manifest_version": 3,
+    "version": "0.1",
+    "content_scripts": [
+      {
+        "all_frames": true,
+        "matches": ["*://netfocus.ncdc.navy.mil/*"],
+        "run_at": "document_idle",
+        "js": ["index.js"]
+      }
+    ],
+    "host_permissions": ["*://netfocus.ncdc.navy.mil/*"],
+    "web_accessible_resources": [
+      {
+        "resources": ["index.js", "hijack.js"],
+        "matches": ["*://netfocus.ncdc.navy.mil/*"]
+      }
+    ],
+    "permissions": [
+        "storage"
+    ]
+  }
+  

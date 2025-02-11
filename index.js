@@ -30,17 +30,26 @@ var RibbonData = {
         "ribbon": {
             sym: false,
             color: "#ffffff",
-            colors: []
+            colors: [
+                {
+                    color: "#002c78",
+                    width: 0.45
+                },
+                {
+                    color: "#ffff00",
+                    width: 0.1
+                }
+            ]
         }
     },
     "honorcad": {
         "name": "Honor Cadet",
         "ribbon": {
             sym: true,
-            color: "#120099",
+            color: "#348ceb",
             colors: [
                 {
-                    color: "#000000",
+                    color: "#120099",
                     width: 0.2
                 }
             ]
@@ -368,7 +377,7 @@ var Game = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         console.log('init');
     },
-    renderRibbonBar: function(ribbons = ["rdm", "exemcond", "cert", "honorcad", "vetsday", "outst1", "outst2", "outst3", "outst4", "distunit"]){
+    renderRibbonBar: function(ribbons = ["distunit", "distcadet", "honorcad", "outst1", "outst2", "outst3", "outst4", "exemcond", "cert", "rdm", "vetsday"]){
         console.log('test');
         let ribbonsfirstrow = [];
         let s = (ribbons.length-1)%rpr+1;

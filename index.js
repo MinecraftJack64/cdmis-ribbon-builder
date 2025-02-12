@@ -1,12 +1,41 @@
 let ribbonsizeratio = 3/11;
 let starscale = 0.1;
+let colors = {
+    "navy": "#2727b0",
+    "red": "#ff0000",
+    "white": "#ffffff",
+    "black": "#000000",
+    "yellow": "#ffea00",
+    "gray": "#878787",
+    "leaf": "#006102",
+    "orange": "#f26100",
+    "blue": "#348ceb",
+    "green": "#0ceb00"
+}
 var RibbonData = {
     "merit": {
         "name": "Meritorious Achievement",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: "#ff0000",
+            colors: [
+                {
+                    color: "#ffffff",
+                    width: 0.8
+                },
+                {
+                    color: colors.navy,
+                    width: 0.7
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.63
+                },
+                {
+                    color: colors.navy,
+                    width: 0.2
+                }
+            ]
         }
     },
     "distunit": {
@@ -33,11 +62,13 @@ var RibbonData = {
             color: "#ffffff",
             colors: [
                 {
-                    color: "#002c78",
+                    color: colors.navy,
+                    start: 0,
                     width: 0.45
                 },
                 {
-                    color: "#ffff00",
+                    color: colors.yellow,
+                    start: 0.45,
                     width: 0.1
                 }
             ]
@@ -59,25 +90,64 @@ var RibbonData = {
     "cadetachieve": {
         "name": "Cadet Achievement",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.gray,
+            colors: [
+                {
+                    color: colors.leaf,
+                    width: 0.3
+                },
+                {
+                    color: colors.orange,
+                    width: 0.1
+                }
+            ]
         }
     },
     "unitachieve": {
         "name": "Unit Achievement",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.gray,
+            colors: [
+                {
+                    color: colors.navy,
+                    width: 0.3
+                },
+                {
+                    color: colors.blue,
+                    width: 0.15
+                },
+                {
+                    color: colors.green,
+                    width: 0.04
+                }
+            ]
         }
     },
     "apt": {
         "name": "Aptitude",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.navy,
+                    width: 0.9
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.75
+                },
+                {
+                    color: colors.navy,
+                    width: 0.3
+                },
+                {
+                    color: colors.white,
+                    width: 0.1
+                }
+            ]
         }
     },
     "outst4": {
@@ -192,33 +262,86 @@ var RibbonData = {
     "exempa": {
         "name": "Exemplary Personal Appearance",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.navy,
+            colors: [
+                {
+                    color: colors.orange,
+                    width: 0.5
+                },
+                {
+                    color: colors.gray,
+                    width: 0.3
+                },
+                {
+                    color: colors.navy,
+                    width: 0.1
+                }
+            ]
         }
     },
     "pt": {
         "name": "Physical Fitness",
         "ribbon": {
             sym: false,
-            color: "#ffffff",
-            colors: []
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.navy,
+                    start: 0,
+                    width: 0.25
+                },
+                {
+                    color: colors.navy,
+                    start: 0.5,
+                    width: 0.25
+                }
+            ]
         }
     },
     "part": {
         "name": "Participation",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: "#18cf04",
+            colors: [
+                {
+                    color: colors.white,
+                    width: 0.8
+                },
+                {
+                    color: "#c28800",
+                    width: 0.3
+                },
+                {
+                    color: colors.white,
+                    width: 0.1
+                }
+            ]
         }
     },
     "unitserve": {
         "name": "Unit Service",
         "ribbon": {
             sym: false,
-            color: "#ffffff",
-            colors: []
+            color: colors.navy,
+            colors: [
+                {
+                    color: colors.yellow,
+                    start: 0.5,
+                    width: 0.5
+                },
+                {
+                    color: colors.white,
+                    start: 0.2,
+                    width: 0.1
+                },
+                {
+                    color: colors.white,
+                    start: 0.7,
+                    width: 0.1
+                }
+            ]
         }
     },
     "commserve": {
@@ -317,6 +440,14 @@ var RibbonData = {
             colors: []
         }
     },
+    "raid": {
+        "name": "Raiders",
+        "ribbon": {
+            sym: false,
+            color: "#29a339",
+            colors: []
+        }
+    },
     "rdm": {
         "name": "Rookie Drill Meet",
         "ribbon": {
@@ -338,18 +469,26 @@ var RibbonData = {
             color: "#ffffff",
             colors: [
                 {
-                    color: "#ff0000",
+                    color: "#0000ff",
                     start: 0,
                     width: 0.33
                 },
                 {
-                    color: "#0000ff",
+                    color: "#ff0000",
                     start: 0.67,
                     width: 0.33
                 },
             ]
         }
     }
+}
+var exttranslations = {
+    "ORIENTEERING RIBBON~1": "ortr",
+    "FULLERTON VETERANS DAY": "vetsday",
+    "ACADEMIC TEAM": "rdm",
+    "RAIDER RIBBON": "raid",
+    "BASIC LEADERSHIP TRAINING": "blt",
+    "FULLERTON VETERANS DAY PARADE": "vetsday"
 }
 var OrnamentData = {
     "checkorder": ["anchor", "lamp", "star"],
@@ -371,6 +510,7 @@ const width = 160;
 const rpr = 3;// ribbons per row
 var Game = {
     canvas: document.createElement("canvas"),
+    errorRibbons: new Set([]),
     init: function(){
         this.canvas.width = 480;
         this.canvas.height = 270;
@@ -496,7 +636,13 @@ var Game = {
         return num ? parseInt(num[0]) : 0;
     },
     getRibbonId: function(ribbon){
-        return this.map[ribbon];
+        if(this.map[ribbon]){
+            return this.map[ribbon];
+        }else if(exttranslations[ribbon]){
+            return exttranslations[ribbon];
+        }else{
+            return undefined;
+        }
     },
     getOrnamentData: function(dev, orn){
         orn = orn.toLowerCase();
@@ -550,6 +696,7 @@ var Game = {
             if(rib.id!==undefined){
                 ribbons.push(rib);
             }else{
+                this.errorRibbons.add(r);
                 console.log("Ribbon not found: "+r);
             }
         }
@@ -585,7 +732,7 @@ var Game = {
     downloadRibbonRack: async function(){
         //download the ribbon rack as an image
         let dataURL = this.canvas.toDataURL();
-        console.log(dataURL);
+        //console.log(dataURL);
         if(dataURL.length<7){
             console.log("dataURL too short");
             return;
@@ -616,6 +763,7 @@ var Game = {
     },
     renderAllCadets: async function(){
         await this.loadCadets();
+        this.clearRibbons();
         //loop through all cadets
         for(let cadet of this.cadets){
             this.cadet = cadet;
@@ -626,6 +774,17 @@ var Game = {
     },
     clearRibbons: function(){
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    drawDefaultRibbonBar: function(){
+        this.clearRibbons();
+        let ribs = [];
+        for(let f in this.map){
+            ribs.push({
+                id: this.map[f],
+                orndata: []
+            });
+        }
+        this.renderRibbonBar(ribs);
     }
 }
 //load asset images
@@ -656,4 +815,5 @@ async function start(){
     Game.init();
     Game.generateRibbonMap();
     await loadAssets();
+    Game.drawDefaultRibbonBar();
 }

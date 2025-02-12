@@ -576,6 +576,11 @@ var Game = {
     downloadRibbonRack: async function(){
         //download the ribbon rack as an image
         let dataURL = this.canvas.toDataURL();
+        console.log(dataURL);
+        if(dataURL.length<7){
+            console.log("dataURL too short");
+            return;
+        }
         //send to server to save
         await fetch('/savecadet/'+this.cadet, {
             method: 'POST',

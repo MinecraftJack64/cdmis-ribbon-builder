@@ -40,6 +40,8 @@ app.get('/getcadet2', function(req, res) {
 });
 app.post('/savecadet/:cadet', function(req, res){
     const dataURI = req.body.data;
+    console.log(req.params.cadet+" "+dataURI);
+    console.log("");
     //console.log(dataURI);
     ImageDataURI.outputFile(dataURI, path.join(__dirname, '/output/'+req.params.cadet+".png"));
     res.send("ok");

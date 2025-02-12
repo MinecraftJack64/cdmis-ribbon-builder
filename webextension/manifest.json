@@ -13,7 +13,7 @@
     "host_permissions": ["*://netfocus.ncdc.navy.mil/*"],
     "web_accessible_resources": [
       {
-        "resources": ["index.js", "hijack.js"],
+        "resources": ["index.js", "hijack.js", "hijack2.js"],
         "matches": ["*://netfocus.ncdc.navy.mil/*"]
       }
     ],

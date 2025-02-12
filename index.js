@@ -1,4 +1,5 @@
 let ribbonsizeratio = 3/11;
+let starscale = 0.1;
 var RibbonData = {
     "merit": {
         "name": "Meritorious Achievement",
@@ -244,7 +245,7 @@ var RibbonData = {
         }
     },
     "stem": {
-        "name": "S.T.E.M.",
+        "name": "S.T.E.M",
         "ribbon": {
             sym: false,
             color: "#ffffff",
@@ -300,7 +301,7 @@ var RibbonData = {
         }
     },
     "cert": {
-        "name": "C.E.R.T.",
+        "name": "C.E.R.T",
         "ribbon": {
             sym: false,
             color: "#046616",
@@ -342,20 +343,20 @@ var RibbonData = {
     }
 }
 var OrnamentData = {
-    "checkorder": ["star", "lamp", "anchor", "drone", "torch"],
+    "checkorder": ["anchor", "lamp", "star"],
     "star": {
-        "bronze": "images/orn/starbronze.png",
-        "silver": "images/orn/starsilver.png",
-        "gold": "images/orn/stargold.png"
+        "bronze": "images/orns/starbronze.png",
+        "silver": "images/orns/starsilver.png",
+        "gold": "images/orns/stargold.png"
     },
     "lamp": {
-        "bronze": "images/orn/lampbronze.png",
-        "silver": "images/orn/lampsilver.png",
-        "gold": "images/orn/lampgold.png"
+        "bronze": "images/orns/lampbronze.png",
+        "silver": "images/orns/lampsilver.png",
+        "gold": "images/orns/lampgold.png"
     },
-    "anchor": "images/orn/anchor.png",
-    "pad": "images/orn/leaf.png",
-    "torch": "images/orn/torch.png"
+    "anchor": "images/orns/anchor.png",
+    //"pad": "images/orns/leaf.png",
+    //"torch": "images/orns/torch.png"
 }
 const width = 160;
 const rpr = 3;// ribbons per row
@@ -378,19 +379,20 @@ var Game = {
         console.log(ribbons);
         console.log(ribbonsfirstrow)
         let height = width*ribbonsizeratio;
+        this.canvas.height = height*Math.ceil((ribbons.length+ribbonsfirstrow.length)*1.0/rpr);
         //center first row
         //ex. 3 per row, if 5 ribbons, first two should be centered
         let firstrowoffset = (rpr-ribbonsfirstrow.length)*width/2;
         //note: starts from 2nd row, render first row later
         for(let i = 0; i < ribbons.length; i++){
-            this.drawRibbon((i%3)*width, Math.floor(i/rpr)*height+height, width, RibbonData[ribbons[i]].ribbon);
+            this.drawRibbon((i%3)*width, Math.floor(i/rpr)*height+height, width, RibbonData[ribbons[i].id].ribbon, ribbons[i].orndata);
         }
         //draw first row
         for(let i = 0; i < ribbonsfirstrow.length; i++){
-            this.drawRibbon(firstrowoffset+i*width, 0, width, RibbonData[ribbonsfirstrow[i]].ribbon);
+            this.drawRibbon(firstrowoffset+i*width, 0, width, RibbonData[ribbonsfirstrow[i].id].ribbon, ribbonsfirstrow[i].orndata);
         }
     },
-    drawRibbon: function(x = 0, y = 0, width = 160, ribdata = RibbonData.exemcond.ribbon, orndata = []){
+    drawRibbon: async function(x = 0, y = 0, width = 160, ribdata = RibbonData.exemcond.ribbon, orndata = []){
         //calculate later
         let issymmetric = ribdata.sym;
         let midwidth = x+width/2;
@@ -417,7 +419,29 @@ var Game = {
         this.context.fillRect(x,y+height-2,width,2);
         this.context.alpha = 1;
 
+        //draw 15 gray lines over ribbon
+        this.context.fillStyle = "#212121";
+        this.context.globalAlpha = 0.1;
+        let lineheight = height/15;
+        for(let i = 0; i < 15; i++){
+            this.context.fillRect(x,y+i*lineheight,width,lineheight);
+        }
+        this.context.globalAlpha = 1;
+
         //draw ornaments in a row at center of ribbon
+        //draw star at center of ribbon
+        let norns = orndata.length;
+        let ornspace = 22;
+        let rx = midwidth-(norns-1)*ornspace/2;
+        let ry = y+height/2;
+        console.log("efjifwjwiefjefwjoif")
+        //this.context.drawImage(i, 0, 0);
+        for(let s of orndata){
+            let i = s.img;
+            let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
+            this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+            rx += ornspace;
+        }
         /*let ornspace = 5;
         let orntotalwidth = 0;
         for(let o of orndata){
@@ -442,19 +466,79 @@ var Game = {
         if(!this.map){
             this.generateRibbonMap();
         }
-        return {
-            ribs: ["EXEMPLARY CONDUCT", "NS I OUTSTANDING CADET", "PHYSICAL FITNESS"],
-            devs: ["", "", "1 BRONZE LAMP"],
-            orns: ["2 SILVER STARS", "", ""]
-        };
+        let ob = {
+            ribs: [],
+            devs: [],
+            orns: []
+        }
+        for(let award of xml.children[0].children){
+            try{
+                ob.ribs.push(award.querySelector('[Name="AWARD1"]').children[0].innerHTML);
+                ob.devs.push(award.querySelector('[Name="DEVICE1"]').children[0].innerHTML);
+                ob.orns.push(award.querySelector('[Name="ORNAMENTATION1"]').children[0].innerHTML);
+            }catch(e){
+                console.log(e);
+            }
+        }
+        return ob;
+    },
+    extractNumberFromString: function(str){
+        let num = str.match(/\d+/);
+        return num ? parseInt(num[0]) : 0;
+    },
+    getRibbonId: function(ribbon){
+        return this.map[ribbon];
+    },
+    getOrnamentData: function(dev, orn){
+        orn = orn.toLowerCase();
+        dev = dev.toLowerCase();
+        let orndata = [];
+        for(let chk of OrnamentData.checkorder){
+            if(orn.includes(chk)){
+                if(OrnamentData[chk].src){
+                    let count = this.extractNumberFromString(orn);
+                    if(count<1) count = 1;
+                    for(let i = 0; i < count; i++)orndata.push(OrnamentData[chk]);
+                }else{
+                    for(let j of Object.keys(OrnamentData[chk])){
+                        if(orn.includes(j)){
+                            let count = this.extractNumberFromString(orn);
+                            if(count<1) count = 1;
+                            for(let i = 0; i < count; i++)orndata.push(OrnamentData[chk][j]);
+                        }
+                    }
+                }
+            }
+            //do same with dev
+            if(dev.includes(chk)){
+                if(OrnamentData[chk].src){
+                    let count = this.extractNumberFromString(orn);
+                    if(count<1) count = 1;
+                    for(let i = 0; i < count; i++)orndata.push(OrnamentData[chk]);
+                }else{
+                    for(let j of Object.keys(OrnamentData[chk])){
+                        if(dev.includes(j)){
+                            let count = this.extractNumberFromString(dev);
+                            if(count<1) count = 1;
+                            for(let i = 0; i < count; i++)orndata.push(OrnamentData[chk][j]);
+                        }
+                    }
+                }
+            }
+            if(orn.includes("anchor")||dev.includes("anchor")){
+                return orndata;
+            }
+        }
+        return orndata;
     },
     parseMasterTable: function(table){
+        let ribbons = [];
         for(let r of table.ribs){
             let rib = {
-                id: this.map[r],
+                id: this.getRibbonId(r),
                 orndata: []
             }
-            if(id!==undefined){
+            if(rib.id!==undefined){
                 ribbons.push(rib);
             }else{
                 console.log("Ribbon not found: "+r);
@@ -468,34 +552,94 @@ var Game = {
         let data = await response.json();
         return data;
     },
+    fetchAllCadets: async function(){
+        //send http request to node server to get cadet list(json array)
+        let response = await fetch('/getcadet2');
+        let data = await response.json();
+        return data;
+    },
     loadCadets: async function(){
         //this is called from a button click
         //get the cadet list
         this.cadets = await this.fetchCadetList();
+        this.cadetjson = await this.fetchAllCadets();
+        this.cadets = Object.keys(this.cadetjson);
         msg.innerHTML = "Cadets loaded from server";
     },
     loadCadet: async function(cadet){
-        let cad = await fetch('/getcadet/'+cadet);
+        let cad = await (await fetch('/getcadet/'+cadet)).text();
         let data = new window.DOMParser().parseFromString(cad, "text/xml");
         console.log(data);
         this.cadet = cadet;
         return data;
     },
-    downloadRibbonRack: function(){
+    downloadRibbonRack: async function(){
         //download the ribbon rack as an image
         let dataURL = this.canvas.toDataURL();
         //send to server to save
-        fetch('/savecadet/'+this.cadet, {
+        await fetch('/savecadet/'+this.cadet, {
             method: 'POST',
             body: JSON.stringify({data: dataURL}),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+    },
+    renderCadetRibbonBar: async function(){
+        //parse xml
+        //let data = this.parseXML(await this.loadCadet(this.cadet));
+        let data = this.cadetjson[this.cadet];
+        console.log(data);
+        //get ribbons
+        let ribbons = this.parseMasterTable(data);
+        //get orns
+        for(let i = 0; i < ribbons.length; i++){
+            let rib = ribbons[i];
+            rib.orndata = this.getOrnamentData(data.devs[i], data.orns[i]);
+        }
+        //render ribbon bar
+        this.renderRibbonBar(ribbons);
+    },
+    renderAllCadets: async function(){
+        await this.loadCadets();
+        //loop through all cadets
+        for(let cadet of this.cadets){
+            this.cadet = cadet;
+            await this.renderCadetRibbonBar();
+            await this.downloadRibbonRack();
+            this.clearRibbons();
+        }
+    },
+    clearRibbons: function(){
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
-function start(){
+//load asset images
+async function loadAssets(){
+    let promises = [];
+    for(let orn in OrnamentData){
+        if(typeof OrnamentData[orn] == "string"){
+            let i = new Image();
+            i.src = OrnamentData[orn];
+            OrnamentData[orn] = {src: i.src, img: i};
+            promises.push(new Promise(resolve => {
+                i.onload = resolve;
+            }));
+        }else if(orn!="checkorder"){
+            for(let o in OrnamentData[orn]){
+                let i = new Image();
+                i.src = OrnamentData[orn][o];
+                OrnamentData[orn][o] = {src: i.src, img: i};
+                promises.push(new Promise(resolve => {
+                    i.onload = resolve;
+                }));
+            }
+        }
+    }
+    await Promise.all(promises);
+}
+async function start(){
     Game.init();
     Game.generateRibbonMap();
-    Game.renderRibbonBar();
+    await loadAssets();
 }

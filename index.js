@@ -10,7 +10,8 @@ let colors = {
     "leaf": "#006102",
     "orange": "#f26100",
     "blue": "#348ceb",
-    "green": "#0ceb00"
+    "green": "#0ceb00",
+    "redbrown": "#401d00"
 }
 var RibbonData = {
     "merit": {
@@ -347,96 +348,237 @@ var RibbonData = {
     "commserve": {
         "name": "Community Service",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.leaf,
+                    width: 0.9
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.7
+                },
+                {
+                    color: colors.leaf,
+                    width: 0.3
+                },
+                {
+                    color: colors.orange,
+                    width: 0.1
+                }
+            ]
         }
     },
     "acad": {
         "name": "Academic Team",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.redbrown,
+            colors: [
+                {
+                    color: colors.orange,
+                    width: 0.9
+                },
+                {
+                    color: colors.white,
+                    width: 0.3
+                },
+                {
+                    color: colors.orange,
+                    width: 0.1
+                }
+            ]
         }
     },
     "drill": {
         "name": "Drill Team",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.white,
+                    width: 0.9
+                },
+                {
+                    color: colors.redbrown,
+                    width: 0.8
+                }
+            ]
         }
     },
     "colorguard": {
         "name": "Color Guard",
         "ribbon": {
             sym: false,
-            color: "#ffffff",
-            colors: []
+            color: colors.white,
+            colors: [
+                {
+                    color: colors.navy,
+                    start: 0.3,
+                    width: 0.1
+                },
+                {
+                    color: colors.red,
+                    start: 0.6,
+                    width: 0.1
+                }
+            ]
         }
     },
     "stem": {
         "name": "S.T.E.M",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.navy,
+                    width: 0.9
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.7
+                },
+                {
+                    color: colors.white,
+                    width: 0.6
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.25
+                },
+                {
+                    color: colors.white,
+                    width: 0.15
+                },
+            ]
         }
     },
     "mk": {
         "name": "Marksmanship",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.white,
+                    width: 0.9
+                },
+                {
+                    color: colors.leaf,
+                    width: 0.8
+                }
+            ]
         }
     },
     "ortr": {
         "name": "Orienteering",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.orange,
+            colors: [
+                {
+                    color: colors.white,
+                    width: 0.25
+                }
+            ]
         }
     },
     "intservcomp": {
         "name": "Inter-service Competition",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.navy,
+            colors: [
+                {
+                    color: colors.white,
+                    width: 0.9
+                },
+                {
+                    color: colors.blue,
+                    width: 0.8
+                },
+                {
+                    color: colors.white,
+                    width: 0.43
+                },
+                {
+                    color: colors.navy,
+                    width: 0.33
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.23
+                }
+            ]
         }
     },
     "rec": {
         "name": "Recruiting",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.leaf,
+            colors: [
+                {
+                    color: colors.yellow,
+                    width: 0.4
+                },
+                {
+                    color: colors.leaf,
+                    width: 0.25
+                },
+                {
+                    color: colors.yellow,
+                    width: 0.2
+                }
+            ]
         }
     },
     "blt": {
         "name": "Leadership Training",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.yellow,
+            colors: [
+                {
+                    color: colors.leaf,
+                    width: 0.3
+                },
+                {
+                    color: colors.red,
+                    width: 0.15
+                },
+                {
+                    color: colors.white,
+                    width: 0.04
+                }
+            ]
         }
     },
     "seacr": {
         "name": "Sea Cruise",
         "ribbon": {
-            sym: false,
-            color: "#ffffff",
-            colors: []
+            sym: true,
+            color: colors.navy,
+            colors: [
+                {
+                    color: colors.white,
+                    width: 0.3
+                },
+                {
+                    color: colors.red,
+                    width: 0.1
+                }
+            ]
         }
     },
     "cert": {
         "name": "C.E.R.T",
         "ribbon": {
             sym: false,
-            color: "#046616",
+            color: "#015202",
             colors: []
         }
     },
@@ -444,7 +586,7 @@ var RibbonData = {
         "name": "Raiders",
         "ribbon": {
             sym: false,
-            color: "#29a339",
+            color: "#00ffff",
             colors: []
         }
     },
@@ -486,7 +628,7 @@ var exttranslations = {
     "ORIENTEERING RIBBON~1": "ortr",
     "FULLERTON VETERANS DAY": "vetsday",
     "ACADEMIC TEAM": "rdm",
-    "RAIDER RIBBON": "raid",
+    "RAIDER RIBBON": "rdm",
     "BASIC LEADERSHIP TRAINING": "blt",
     "FULLERTON VETERANS DAY PARADE": "vetsday"
 }
@@ -511,12 +653,20 @@ const rpr = 3;// ribbons per row
 var Game = {
     canvas: document.createElement("canvas"),
     errorRibbons: new Set([]),
+    popRibbons: {},
     init: function(){
         this.canvas.width = 480;
         this.canvas.height = 270;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         console.log('init');
+    },
+    account: function(ribbon){//add to frequency map f ribbons to determine most popular and least popular ones
+        if(this.popRibbons[ribbon]){
+            this.popRibbons[ribbon]++;
+        }else{
+            this.popRibbons[ribbon] = 1;
+        }
     },
     renderRibbonBar: function(ribbons = ["distunit", "distcadet", "honorcad", "outst1", "outst2", "outst3", "outst4", "exemcond", "cert", "rdm", "vetsday"]){
         console.log('test');
@@ -535,10 +685,12 @@ var Game = {
         //note: starts from 2nd row, render first row later
         for(let i = 0; i < ribbons.length; i++){
             this.drawRibbon((i%3)*width, Math.floor(i/rpr)*height+height, width, RibbonData[ribbons[i].id].ribbon, ribbons[i].orndata);
+            this.account(RibbonData[ribbons[i].id].name);
         }
         //draw first row
         for(let i = 0; i < ribbonsfirstrow.length; i++){
             this.drawRibbon(firstrowoffset+i*width, 0, width, RibbonData[ribbonsfirstrow[i].id].ribbon, ribbonsfirstrow[i].orndata);
+            this.account(RibbonData[ribbonsfirstrow[i].id].name);
         }
     },
     drawRibbon: async function(x = 0, y = 0, width = 160, ribdata = RibbonData.exemcond.ribbon, orndata = []){
@@ -569,11 +721,11 @@ var Game = {
         this.context.alpha = 1;
 
         //draw 15 gray lines over ribbon
-        this.context.fillStyle = "#212121";
-        this.context.globalAlpha = 0.1;
+        this.context.fillStyle = "#000000";
+        this.context.globalAlpha = 0.2;
         let lineheight = height/15;
         for(let i = 0; i < 15; i++){
-            this.context.fillRect(x,y+i*lineheight,width,lineheight);
+            this.context.fillRect(x,y+i*lineheight,width,lineheight/2);
         }
         this.context.globalAlpha = 1;
 
@@ -764,6 +916,7 @@ var Game = {
     renderAllCadets: async function(){
         await this.loadCadets();
         this.clearRibbons();
+        this.popRibbons = {};
         //loop through all cadets
         for(let cadet of this.cadets){
             this.cadet = cadet;

@@ -43,6 +43,9 @@ app.post('/savecadet/:cadet', function(req, res){
     console.log(req.params.cadet+" "+dataURI);
     console.log("");
     //console.log(dataURI);
+    if(!fs.existsSync(path.join(__dirname, '/output'))){
+        fs.mkdirSync(path.join(__dirname, '/output'));
+    }
     ImageDataURI.outputFile(dataURI, path.join(__dirname, '/output/'+req.params.cadet+".png"));
     res.send("ok");
 });

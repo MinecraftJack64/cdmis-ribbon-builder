@@ -1,3 +1,4 @@
 node_modules
 cdmisdata/*
 !cdmisdata/PutCadetRibbonDataHere
+output

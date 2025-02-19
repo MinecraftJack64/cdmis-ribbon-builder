@@ -586,8 +586,24 @@ var RibbonData = {
         "name": "Raiders",
         "ribbon": {
             sym: false,
-            color: "#00ffff",
-            colors: []
+            color: colors.black,
+            colors: [
+                {
+                    color: colors.gray,
+                    start: 0,
+                    width: 0.25
+                },
+                {
+                    color: "#545353",
+                    start: 0.25,
+                    width: 0.25
+                },
+                {
+                    color: "#303030",
+                    start: 0.5,
+                    width: 0.25
+                },
+            ]
         }
     },
     "rdm": {
@@ -668,7 +684,7 @@ var Game = {
             this.popRibbons[ribbon] = 1;
         }
     },
-    renderRibbonBar: function(ribbons = ["distunit", "distcadet", "honorcad", "outst1", "outst2", "outst3", "outst4", "exemcond", "cert", "rdm", "vetsday"]){
+    renderRibbonBar: function(ribbons){
         console.log('test');
         let ribbonsfirstrow = [];
         let s = (ribbons.length-1)%rpr+1;
@@ -731,17 +747,41 @@ var Game = {
 
         //draw ornaments in a row at center of ribbon
         //draw star at center of ribbon
-        let norns = orndata.length;
-        let ornspace = 22;
-        let rx = midwidth-(norns-1)*ornspace/2;
-        let ry = y+height/2;
-        console.log("efjifwjwiefjefwjoif")
-        //this.context.drawImage(i, 0, 0);
-        for(let s of orndata){
-            let i = s.img;
-            let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
-            this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
-            rx += ornspace;
+        if(orndata.length==1){
+            let norns = orndata[0].length;
+            let ornspace = 22;
+            let rx = midwidth-(norns-1)*ornspace/2;
+            let ry = y+height/2;
+            //this.context.drawImage(i, 0, 0);
+            for(let s of orndata[0]){
+                let i = s.img;
+                let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
+                this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+                rx += ornspace;
+            }
+        }else if(orndata.length==2){
+            let norns = orndata[0].length;
+            let ornspace = 22;//"width/4" this is different
+            let rx = midwidth-width/4-(norns-1)*ornspace/2;
+            let ry = y+height/2;
+            //this.context.drawImage(i, 0, 0);
+            for(let s of orndata[0]){
+                let i = s.img;
+                let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
+                this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+                rx += ornspace;
+            }
+            norns = orndata[1].length;
+            ornspace = 22;
+            rx = midwidth+width/4-(norns-1)*ornspace/2;
+            ry = y+height/2;
+            //this.context.drawImage(i, 0, 0);
+            for(let s of orndata[1]){
+                let i = s.img;
+                let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
+                this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+                rx += ornspace;
+            }
         }
         /*let ornspace = 5;
         let orntotalwidth = 0;
@@ -800,6 +840,7 @@ var Game = {
         orn = orn.toLowerCase();
         dev = dev.toLowerCase();
         let orndata = [];
+        let devdata = [];
         for(let chk of OrnamentData.checkorder){
             if(orn.includes(chk)){
                 if(OrnamentData[chk].src){
@@ -821,22 +862,25 @@ var Game = {
                 if(OrnamentData[chk].src){
                     let count = this.extractNumberFromString(orn);
                     if(count<1) count = 1;
-                    for(let i = 0; i < count; i++)orndata.push(OrnamentData[chk]);
+                    for(let i = 0; i < count; i++)devdata.push(OrnamentData[chk]);
                 }else{
                     for(let j of Object.keys(OrnamentData[chk])){
                         if(dev.includes(j)){
                             let count = this.extractNumberFromString(dev);
                             if(count<1) count = 1;
-                            for(let i = 0; i < count; i++)orndata.push(OrnamentData[chk][j]);
+                            for(let i = 0; i < count; i++)devdata.push(OrnamentData[chk][j]);
                         }
                     }
                 }
             }
             if(orn.includes("anchor")||dev.includes("anchor")){
-                return orndata;
+                return [orndata];
             }
         }
-        return orndata;
+        let res = [];
+        if(devdata.length>0)res.push(devdata);
+        if(orndata.length>0)res.push(orndata);
+        return res;
     },
     parseMasterTable: function(table){
         let ribbons = [];

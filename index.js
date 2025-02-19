@@ -795,6 +795,15 @@ var Game = {
             ornstart += o.width+ornspace;
         }*/
     },
+    labelCadet: function(cadet){
+        this.context.font = "20px Arial";
+        this.context.fillStyle = "#ffffff";
+        this.context.globalAlpha = 0.8;
+        this.context.fillRect(0, 0, this.context.measureText(cadet).width, 22);
+        this.context.fillStyle = "#000000";
+        this.context.globalAlpha = 1;
+        this.context.fillText(cadet, 0, 20);
+    },
     //create the maps of ribbons. Used when parsing xml files to get ribbon id
     generateRibbonMap: function(){
         this.map = {};
@@ -956,6 +965,8 @@ var Game = {
         }
         //render ribbon bar
         this.renderRibbonBar(ribbons);
+        //label cadet
+        if(document.getElementById("labelcadets").checked)this.labelCadet(this.cadet.replace("_", ", "));
     },
     renderAllCadets: async function(){
         await this.loadCadets();

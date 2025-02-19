@@ -1,4 +1,5 @@
 node_modules
 cdmisdata/*
-!cdmisdata/PutCadetRibbonDataHere
+!cdmisdata/PutCadetRibbonDataHere.pdf
 output
+webextension.pem

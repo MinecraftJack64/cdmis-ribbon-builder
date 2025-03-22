@@ -3,3 +3,4 @@ cdmisdata/*
 !cdmisdata/PutCadetRibbonDataHere.pdf
 output
 webextension.pem
+output.zip

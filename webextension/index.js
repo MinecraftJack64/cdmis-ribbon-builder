@@ -11,8 +11,9 @@ function onListExpand(){
     }
     let table = document.getElementById("ctl00_mainContent_gvCadets").children[0];
     let tr = table.children[currentcadet];
+    let name = currentcadet;
     try{
-        let name = tr.children[0].children[0].innerHTML+"_"+tr.children[1].children[0].innerHTML;
+        name = tr.children[0].children[0].innerHTML+"_"+tr.children[1].children[0].innerHTML;
     }catch(e){
         let d = document.createElement("textarea");
         chrome.storage.local.get('ribs', function(data) {

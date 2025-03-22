@@ -36,8 +36,8 @@ app.get('/getcadet/:cadet', function(req, res) {
 });
 app.get('/getcadet2', function(req, res) {
     //send json object
-    res.sendFile(path.join(__dirname, '/cdmisdata/all.txt'));
-    //res.sendFile(path.join(__dirname, '/cdmisdata/all.json'));
+    //res.sendFile(path.join(__dirname, '/cdmisdata/all.txt'));
+    res.sendFile(path.join(__dirname, '/cdmisdata/all.json'));
 });
 app.post('/savecadet/:cadet', function(req, res){
     const dataURI = req.body.data;

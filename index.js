@@ -667,14 +667,13 @@ var OrnamentData = {
 const width = 160;
 const rpr = 3;// ribbons per row
 var Game = {
-    canvas: document.createElement("canvas"),
+    canvas: document.getElementsByTagName("canvas")[0],
     errorRibbons: new Set([]),
     popRibbons: {},
     init: function(){
         this.canvas.width = 480;
         this.canvas.height = 270;
         this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         console.log('init');
     },
     account: function(ribbon){//add to frequency map f ribbons to determine most popular and least popular ones
@@ -710,40 +709,43 @@ var Game = {
         }
     },
     drawRibbon: async function(x = 0, y = 0, width = 160, ribdata = RibbonData.exemcond.ribbon, orndata = []){
+        this.drawRibbonOnContext(this.context, x, y, width, ribdata, orndata);
+    },
+    drawRibbonOnContext: async function(context = this.context, x = 0, y = 0, width = 160, ribdata = RibbonData.exemcond.ribbon, orndata = []){
         //calculate later
         let issymmetric = ribdata.sym;
         let midwidth = x+width/2;
 
         let height = width*ribbonsizeratio;
         //Draw back rectangle
-        this.context.fillStyle = ribdata.color;
-        this.context.fillRect(x,y,width,height);
+        context.fillStyle = ribdata.color;
+        context.fillRect(x,y,width,height);
         if(issymmetric){
             for(let c of ribdata.colors){
-                this.context.fillStyle = c.color;
-                this.context.fillRect(midwidth-c.width*width/2,y,c.width*width, height);
+                context.fillStyle = c.color;
+                context.fillRect(midwidth-c.width*width/2,y,c.width*width, height);
             }
         }else{
             for(let c of ribdata.colors){
-                this.context.fillStyle = c.color;
-                this.context.fillRect(x+c.start*width,y,c.width*width, height);
+                context.fillStyle = c.color;
+                context.fillRect(x+c.start*width,y,c.width*width, height);
             }
         }
         //draw gray transparent shadow along bottom and right of ribbon
-        this.context.fillStyle = "#212121";
-        this.context.alpha = 0.5;
-        this.context.fillRect(x+width-1,y,1,height);
-        this.context.fillRect(x,y+height-2,width,2);
-        this.context.alpha = 1;
+        context.fillStyle = "#212121";
+        context.alpha = 0.5;
+        context.fillRect(x+width-1,y,1,height);
+        context.fillRect(x,y+height-2,width,2);
+        context.alpha = 1;
 
         //draw 15 gray lines over ribbon
-        this.context.fillStyle = "#000000";
-        this.context.globalAlpha = 0.2;
+        context.fillStyle = "#000000";
+        context.globalAlpha = 0.2;
         let lineheight = height/15;
         for(let i = 0; i < 15; i++){
-            this.context.fillRect(x,y+i*lineheight,width,lineheight/2);
+            context.fillRect(x,y+i*lineheight,width,lineheight/2);
         }
-        this.context.globalAlpha = 1;
+        context.globalAlpha = 1;
 
         //draw ornaments in a row at center of ribbon
         //draw star at center of ribbon
@@ -752,11 +754,11 @@ var Game = {
             let ornspace = 22;
             let rx = midwidth-(norns-1)*ornspace/2;
             let ry = y+height/2;
-            //this.context.drawImage(i, 0, 0);
+            //context.drawImage(i, 0, 0);
             for(let s of orndata[0]){
                 let i = s.img;
                 let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
-                this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+                context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
                 rx += ornspace;
             }
         }else if(orndata.length==2){
@@ -764,22 +766,22 @@ var Game = {
             let ornspace = 22;//"width/4" this is different
             let rx = midwidth-width/4-(norns-1)*ornspace/2;
             let ry = y+height/2;
-            //this.context.drawImage(i, 0, 0);
+            //context.drawImage(i, 0, 0);
             for(let s of orndata[0]){
                 let i = s.img;
                 let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
-                this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+                context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
                 rx += ornspace;
             }
             norns = orndata[1].length;
             ornspace = 22;
             rx = midwidth+width/4-(norns-1)*ornspace/2;
             ry = y+height/2;
-            //this.context.drawImage(i, 0, 0);
+            //context.drawImage(i, 0, 0);
             for(let s of orndata[1]){
                 let i = s.img;
                 let scale = i.src.includes("lamp") ? starscale*0.5 : starscale;
-                this.context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
+                context.drawImage(i, rx-i.width*scale/2, ry-i.height*scale/2, i.width*scale, i.height*scale);
                 rx += ornspace;
             }
         }
@@ -790,8 +792,8 @@ var Game = {
         }
         let ornstart = midwidth-orntotalwidth/2;
         for(let o of orndata){
-            this.context.fillStyle = o.color;
-            this.context.fillRect(ornstart,y+height/2-o.height/2,o.width,o.height);
+            context.fillStyle = o.color;
+            context.fillRect(ornstart,y+height/2-o.height/2,o.width,o.height);
             ornstart += o.width+ornspace;
         }*/
     },
@@ -951,10 +953,36 @@ var Game = {
             }
         });
     },
+    downloadRibbonRackLocally: async function(){
+        //download the ribbon rack as an image
+        let dataURL = this.canvas.toDataURL();
+        //console.log(dataURL);
+        if(dataURL.length<7){
+            console.log("dataURL too short");
+            return;
+        }
+        window.location.href = dataURL.replace("image/png", "image/octet-stream"); //force download
+    },
     renderCadetRibbonBar: async function(){
         //parse xml
         //let data = this.parseXML(await this.loadCadet(this.cadet));
         let data = this.cadetjson[this.cadet];
+        console.log(data);
+        //get ribbons
+        let ribbons = this.parseMasterTable(data);
+        //get orns
+        for(let i = 0; i < ribbons.length; i++){
+            let rib = ribbons[i];
+            rib.orndata = this.getOrnamentData(data.devs[i], data.orns[i]);
+        }
+        //render ribbon bar
+        this.renderRibbonBar(ribbons);
+        //label cadet
+        if(document.getElementById("labelcadets").checked)this.labelCadet(this.cadet.replace("_", ", "));
+    },
+    renderEditorRibbonBar: async function(data){
+        //parse xml
+        //let data = this.parseXML(await this.loadCadet(this.cadet));
         console.log(data);
         //get ribbons
         let ribbons = this.parseMasterTable(data);
@@ -993,6 +1021,124 @@ var Game = {
             });
         }
         this.renderRibbonBar(ribs);
+    },
+    getDataFromEditor: function(){
+        var data = {
+            ribs: [],
+            devs: [],
+            orns: []
+        }
+        for(let ribElem of document.getElementsByClassName("ribbonChoice")){
+            if(ribElem.checked){
+                let rib = RibbonData[ribElem.dataset.ribbon];
+                data.ribs.push(rib.name.toUpperCase());
+                let devElem = ribElem.parentElement.parentElement.querySelector(".devChoice");
+                let ornElem = ribElem.parentElement.parentElement.querySelector(".ornChoice");
+                data.devs.push(devElem.value);
+                data.orns.push(ornElem.value);
+            }
+        }
+        return data;
+    },
+    renderEditor: function(){
+        this.clearRibbons();
+        this.renderEditorRibbonBar(getDataFromEditor());
+    },
+    exposeCode: async function(){
+        var data = this.getDataFromEditor();
+        document.getElementById("ribbonCode").innerHTML = JSON.stringify(data);//update ribbon code text area
+        await navigator.clipboard.writeText(JSON.stringify(data));//copy to clipboard
+        alert("Ribbon code copied to clipboard:\n"+JSON.stringify(data));//alert user
+    },
+    initEditor: function(){
+        document.getElementById("edit").style.display = "block";
+        let list = document.getElementById("ribbonSelect");
+        list.style.width = "800px";
+        for(let f in RibbonData){
+            let li = document.createElement("li");
+            li.style.display = "flex";
+            li.style.flexDirection = "row";
+            li.style.alignItems = "center";
+            li.style.justifyContent = "space-between";
+            let fdiv = document.createElement("div");
+            let ldiv = document.createElement("div");
+            fdiv.style.display = "flex";
+            fdiv.style.flexDirection = "row";
+            fdiv.style.alignItems = "center";
+            fdiv.style.overflow = "auto";
+            ldiv.style.display = "flex";
+            ldiv.style.flexDirection = "row";
+            ldiv.style.alignItems = "center";
+            let canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = width*ribbonsizeratio;
+            let p = document.createElement("span");
+            p.innerHTML = RibbonData[f].name;
+            let check = document.createElement("input");
+            check.type = "checkbox";
+            check.classList.add("ribbonChoice");
+            check.style.margin = "10px";
+            let orn = document.createElement("select");
+            orn.classList.add("ornChoice");
+            orn.innerHTML = `
+            <option value=''>None</option>
+            <option value='bronze star'>1 Bronze Star</option>
+            <option value='2 bronze stars'>2 Bronze Stars</option>
+            <option value='3 bronze stars'>3 Bronze Stars</option>
+            <option value='silver star'>1 Silver Star</option>
+            <option value='2 silver stars'>2 Silver Stars</option>
+            <option value='3 silver stars'>3 Silver Stars</option>
+            <option value='gold star'>1 Gold Star</option>
+            <option value='2 gold stars'>2 Gold Stars</option>
+            <option value='3 gold stars'>3 Gold Stars</option>
+            `;
+            let dev = document.createElement("select");
+            dev.classList.add("devChoice");
+            dev.innerHTML = `
+            <option value=''>None</option>
+            <option value='bronze lamp'>Bronze Lamp</option>
+            <option value='silver lamp'>Silver Lamp</option>
+            <option value='gold lamp'>Gold Lamp</option>
+            <option value='anchor'>Anchor</option>
+            `;
+            check.dataset.ribbon = f;
+            orn.dataset.ribbon = f;
+            dev.dataset.ribbon = f;
+            //add listeners to update renderEditor when changed
+            check.addEventListener("change", () => {this.renderEditor();});
+            orn.addEventListener("change", () => {this.renderEditor();});
+            dev.addEventListener("change", () => {this.renderEditor();});
+            fdiv.appendChild(canvas);
+            fdiv.appendChild(check);
+            fdiv.appendChild(p);
+            ldiv.appendChild(dev);
+            ldiv.appendChild(orn);
+            li.appendChild(fdiv);
+            li.appendChild(ldiv);
+            list.appendChild(li);
+            let context = canvas.getContext("2d");
+            this.drawRibbonOnContext(context, 0, 0, width, RibbonData[f].ribbon);//each canvas has single ribbon
+        }
+    },
+    loadRibbonCode: function(){
+        //browser prompt for ribbon code
+        let code = prompt("Enter the ribbon code:");
+        if(code){
+            //string to json
+            let ribbons = JSON.parse(code);
+            for(let i = 0; i < ribbons.ribs.length; i++){
+                let rib = ribbons.ribs[i];
+                let ribElem = document.querySelector(`input[data-ribbon="${this.getRibbonId(rib)}"]`);
+                if(ribElem){
+                    ribElem.checked = true;
+                    let devElem = ribElem.parentElement.parentElement.querySelector(".devChoice");
+                    let ornElem = ribElem.parentElement.parentElement.querySelector(".ornChoice");
+                    devElem.value = ribbons.devs[i];
+                    ornElem.value = ribbons.orns[i];
+                }
+            }
+            this.renderEditor(); //update ribbon bar
+        }
     }
 }
 //load asset images

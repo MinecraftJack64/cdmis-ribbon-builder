@@ -11,13 +11,21 @@ canvas {
 </style>
 </head>
 <body onload="start()">
+<div id="edit" style="display:none;">
+    <button onclick="Game.loadRibbonCode()">Load Ribbon Rack Code</button>
+    <ul id="ribbonSelect">
+    </ul>
+    <button onclick="Game.downloadRibbonRackLocally()">Download Ribbon Rack</button>
+    <button onclick="Game.exposeCode()">Copy Ribbon Rack Code</button>
+    <p id="ribbonCode"></p>
+</div>
+<canvas id="canvas" width="800" height="600"></canvas>
 <p id="msg"></p>
 <button onclick="Game.renderAllCadets()">Fetch Cadet List</button>
 <input type="checkbox" id="labelcadets" name="labelcadets" value="labelcadets">
 <label for="labelcadets">Label Cadets</label>
+<button onclick="Game.initEditor()">Edit Ribbons</button>
 <script src="index.js"></script>
-
-<p>Make sure the gamearea has focus, and use the arrow keys to move the red square around.</p>
 
 </body>
 </html>
